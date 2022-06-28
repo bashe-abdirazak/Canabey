@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+    <script>
+      tinymce.init({
+        selector: '#mytextarea'
+      });
+    </script>
+</head>
+
+<style>
+.require {
+    color: #666;
+}
+label small {
+    color: #999;
+    font-weight: normal;
+}
+
+   body, .navbar{
+  margin:0;
+  padding:0;
+  font-family: sans-serif;
+  background: linear-gradient(#141e30, #243b55);
+}
+</style>
+
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-header">
+        <a class="navbar-brand"  th:href="@{/admin}">Home </a>
+        <a class="navbar-brand"  th:href="@{/addBlogForm}">Add Blog </a>
+        <a class="navbar-brand"  th:href="@{/logout}">Logout</a>
+    </div>
+</nav>
+<br/>
+<br/>
+<div class="container" style="height: 100vh;">
+    <div class="row">
+
+        <div class="col-md-8 col-md-offset-2">
+
+            <h1 style="color:white;">Update post</h1>
+
+            <form th:action="@{/editBlog/}+${blogId}" method="post" th:object="${blog}">
+                <div class="form-group">
+                <span th:name="blogId" th:value="${blogId}" hidden/>
+                </div>
+                <div class="form-group">
+                    <label style="color:white;" for="author">Author</label>
+                    <input type="text" id="author" class="form-control" th:field="*{author}" required name="author" />
+                </div>
+                <div class="form-group">
+                    <label style="color:white;" for="title">Title</label>
+                    <input type="text" id="title" class="form-control" th:field="*{title}" required name="title" />
+                </div>
+
+                <div class="form-group">
+                    <label style="color:white;" for="mytextarea">Description</label>
+                    <textarea rows="5" id="mytextarea" class="form-control" th:field="*{description}" name="description" ></textarea>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button class="btn btn-default" th:href="@{/admin}">Cancel</button>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

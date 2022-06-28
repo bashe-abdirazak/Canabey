@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Registration</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+		  integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+
+
+<script>
+
+function matchPassword() {
+  var pw1 = document.getElementById("password").value;
+  var pw2 = document.getElementById("cpassword").value;
+  if(pw1 != pw2)
+  {
+    alert("Passwords did not match");
+    return false;
+  }
+return true;
+
+}
+
+ function myFunction() {
+  var x = document.getElementById("password");
+  if (x.type === "password") {
+    x.type = "text";
+  } else {
+    x.type = "password";
+  }
+}
+
+
+
+</script>
+
+<style>
+html {
+  height: 100%;
+}
+body, .navbar{
+  margin:0;
+  padding:0;
+  font-family: sans-serif;
+  background: linear-gradient(#141e30, #243b55);
+}
+
+.register-box {
+  position: absolute;
+  margin-top: 22px;
+  top: 50%;
+  left: 50%;
+  width:700px;
+  transform: translate(-50%, -50%);
+  background: rgba(0,0,0,.5);
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0,0,0,.6);
+  border-radius: 10px;
+}
+
+.register-box h2 {
+  color: #fff;
+  text-align: center;
+}
+
+
+</style>
+
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="#" th:href="@{/home}">East African Eats </a>
+			<a class="navbar-brand" href="#" th:href="@{/login}">Login</a>
+			<a class="navbar-brand"  th:href="@{/registration}">Register</a>
+		</div>
+</nav>
+
+<br>
+<!-- Create HTML registration form -->
+<div class="container">
+
+	<div class="register-box">
+		<h2>Registration</h2>
+		<div class="col-md-6 col-md-offset-3">
+
+			<!-- success message -->
+			<div th:if="${param.success}">
+				<div class="alert alert-info">You've successfully registered
+					to app!</div>
+			</div>
+
+			<form onsubmit="return matchPassword()" th:action="@{/registration}" method="post" th:object="${user}">
+				<div class="form-group">
+					<label style="color: white;" class="control-label" for="firstName"> First Name </label >
+					<input id="firstName" class="form-control" th:field="*{firstName}" required
+						   autofocus="autofocus" />
+				</div>
+
+				<div class="form-group">
+					<label style="color: white;" class="control-label" for="lastName"> Last Name </label>
+					<input id="lastName" class="form-control" th:field="*{lastName}" required autofocus="autofocus" />
+				</div>
+
+				<div class="form-group">
+					<label style="color: white;" class="control-label" for="email"> Email </label>
+					<input type="email" id="email" class="form-control"
+						   th:field="*{email}" required autofocus="autofocus" />
+				</div>
+
+				<p style="color: red;">Password should be 6-10 long alpha/numerics </p>
+				<div class="form-group">
+					<label style="color: white;" class="control-label" for="password"> Password </label>
+					<input id="password" class="form-control" pattern="[A-Za-z0-9]{6,10}" type="password" th:field="*{password}" required
+						   autofocus="autofocus" />
+					<input type="checkbox" onclick="myFunction()"><label style="color: white;" > Show Password </label>
+				</div>
+
+				<div class="form-group">
+					<label style="color: white;" class="control-label" for="cpassword"> Confirm Password </label>
+					<input id="cpassword" class="form-control" pattern=".{6,12}" type="password" required autofocus="autofocus" />
+                    <br/>
+					<button type="submit" class="btn btn-secondary col-sm-offset-0">Register</button>
+					<span style="color:#03e9f4; margin-left:7px;">Already registered? <a href="/" th:href="@{/login}" style="color:white;">Login
+								here</a></span>
+				</div>
+
+			</form>
+		</div >
+	</div>
+
+</div>
+</body>
+
+</html>
